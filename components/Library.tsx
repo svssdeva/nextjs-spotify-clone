@@ -1,14 +1,16 @@
 "use client";
+import MediaItem from "@/components/MediaItem";
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
 import {useUser} from "@/hooks/useUser";
+import {Song} from "@/types";
 import React from "react";
 import {AiOutlinePlus} from "react-icons/ai";
 import {TbPlaylist} from "react-icons/tb";
 interface LibraryProps {
-
-}
-const Library: React.FC<LibraryProps> = () => {
+    songs:Song[]
+};
+const Library: React.FC<LibraryProps> = ({songs}) => {
     const authModal = useAuthModal();
     const uploadModal = useUploadModal();
     const {user} = useUser();
@@ -32,7 +34,13 @@ const Library: React.FC<LibraryProps> = () => {
                 <AiOutlinePlus size={20} onClick={onClick} className="text-neutral-400 cursor-pointer hover:text-white transition"></AiOutlinePlus>
             </div>
             <div className="flex flex-col gap-y-2 mt-4 px-3">
-                List of songs
+                {songs.map((song) => (
+                    <MediaItem
+                        onClick={(id: string) => {}}
+                        key={song.id}
+                        data={song}
+                    />
+                ))}
             </div>
         </div>
     )
